@@ -1,4 +1,6 @@
-﻿namespace Revenue_recognition_system.Models;
+﻿using Revenue_recognition_system.Models;
+
+namespace Revenue_recognition_system.Domain.Entities;
 
 public class CompanyClient : Client
 {

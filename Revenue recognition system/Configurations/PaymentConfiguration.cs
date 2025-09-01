@@ -29,6 +29,10 @@ public class PaymentConfiguration : IEntityTypeConfiguration<Payment>
 
         builder.Property(p => p.PaymentTargetId)
             .HasColumnName("PaymentTarget_Id");
+
+        builder.HasOne(p => p.Status)
+            .WithMany(s => s.Payments)
+            .HasForeignKey(p => p.StatusId);
         
         builder.HasOne(p => p.PaymentMethod)
             .WithMany(pm => pm.Payments)
@@ -37,9 +41,5 @@ public class PaymentConfiguration : IEntityTypeConfiguration<Payment>
         builder.HasOne(p => p.PaymentTarget)
             .WithMany(pt => pt.Payments)
             .HasForeignKey(p => p.PaymentTargetId);
-        
-        builder.HasOne(p => p.Status)
-            .WithMany(s => s.Payments)
-            .HasForeignKey(p => p.StatusId);
     }
 }

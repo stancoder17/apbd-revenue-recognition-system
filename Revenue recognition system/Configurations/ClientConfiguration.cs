@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Revenue_recognition_system.Domain.Entities;
 using Revenue_recognition_system.Models;
 
 namespace Revenue_recognition_system.Configurations;

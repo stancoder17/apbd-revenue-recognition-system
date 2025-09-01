@@ -9,5 +9,5 @@ public class Software
     public decimal LicensePrice { get; set; }
 
     public virtual Category Category { get; set; } = null!;
-    public virtual ICollection<SoftwareVersion> Versions { get; set; } = null!;
+    public virtual ICollection<SoftwareVersion> Versions { get; set; } = new List<SoftwareVersion>();
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Revenue_recognition_system.Models;
+using Revenue_recognition_system.Domain.Entities;
 
 namespace Revenue_recognition_system.Configurations;
 
@@ -17,5 +17,7 @@ public class CompanyClientConfiguration : IEntityTypeConfiguration<CompanyClient
             .HasColumnName("KRS")
             .HasMaxLength(10)
             .IsFixedLength();
+        
+        builder.HasIndex(cc => cc.Krs).IsUnique();
     }
 }

@@ -10,7 +10,7 @@ public class Payment
     public int PaymentMethodId { get; set; }
     public int PaymentTargetId { get; set; }
 
+    public virtual Status Status { get; set; } = null!;
     public virtual PaymentMethod PaymentMethod { get; set; } = null!;
     public virtual PaymentTarget PaymentTarget { get; set; } = null!;
-    public virtual Status Status { get; set; } = null!;
 }

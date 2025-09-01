@@ -8,6 +8,6 @@ public abstract class Client
     public int AddressId { get; set; }
     
     public virtual Address Address { get; set; } = null!;
-    public virtual ICollection<ClientDiscount> ClientDiscounts { get; set; } = null!;
-    public virtual ICollection<Contract> Contracts { get; set; } = null!;
+    public virtual ICollection<ClientDiscount> ClientDiscounts { get; set; } = new List<ClientDiscount>();
+    public virtual ICollection<Contract> Contracts { get; set; } = new List<Contract>();
 }

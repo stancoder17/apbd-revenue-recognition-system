@@ -14,9 +14,5 @@ public class StatusConfiguration : IEntityTypeConfiguration<Status>
         builder.Property(s => s.Name)
             .HasMaxLength(100)
             .IsRequired();
-
-        builder.HasMany(s => s.Payments)
-            .WithOne(p => p.Status)
-            .HasForeignKey("Status_Id");
     }
 }

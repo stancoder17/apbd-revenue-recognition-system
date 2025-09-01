@@ -9,6 +9,8 @@ public class Discount
     public DateTime ActiveTo { get; set; }
     public bool IsGlobal { get; set; }
 
-    public virtual ICollection<ClientDiscount> ClientDiscounts { get; set; } = null!;
-    public virtual ICollection<SoftwareVersionDiscount> SoftwareVersionDiscounts { get; set; } = null!;
+    public virtual ICollection<ClientDiscount> ClientDiscounts { get; set; } = new List<ClientDiscount>();
+
+    public virtual ICollection<SoftwareVersionDiscount> SoftwareVersionDiscounts { get; set; } =
+        new List<SoftwareVersionDiscount>();
 }

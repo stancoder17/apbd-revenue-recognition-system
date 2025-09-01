@@ -8,5 +8,5 @@ public class SoftwareVersion
     public DateTime ReleaseDate { get; set; }
 
     public virtual Software Software { get; set; } = null!;
-    public virtual ICollection<SoftwareVersionDiscount> SoftwareVersionDiscounts { get; set; } = null!;
+    public virtual ICollection<SoftwareVersionDiscount> SoftwareVersionDiscounts { get; set; } = new List<SoftwareVersionDiscount>();
 }

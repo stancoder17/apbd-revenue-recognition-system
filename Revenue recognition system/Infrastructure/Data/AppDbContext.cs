@@ -1,5 +1,4 @@
-﻿using Revenue_recognition_system.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Revenue_recognition_system.Domain.Entities;
 
 namespace Revenue_recognition_system.Data;

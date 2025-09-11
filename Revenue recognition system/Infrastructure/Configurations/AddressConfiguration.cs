@@ -1,15 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Revenue_recognition_system.Models;
+using Revenue_recognition_system.Domain.Entities;
 
-namespace Revenue_recognition_system.Configurations;
+namespace Revenue_recognition_system.Infrastructure.Configurations;
 
 public class AddressConfiguration : IEntityTypeConfiguration<Address>
 {
     public void Configure(EntityTypeBuilder<Address> builder)
     {
-        builder.ToTable("Address");
-
         builder.HasKey(a => a.Id);
 
         builder.Property(a => a.City)

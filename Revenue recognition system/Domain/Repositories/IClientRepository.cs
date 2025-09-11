@@ -1,12 +1,15 @@
-﻿using Revenue_recognition_system.Models;
+﻿using Revenue_recognition_system.Domain.Entities;
 
-namespace Revenue_recognition_system.Domain.Repositories.Interfaces;
+namespace Revenue_recognition_system.Domain.Repositories;
 
 public interface IClientRepository
 {
+    public Task<IndividualClient?> GetIndividualByIdAsync(int clientId);
+    public Task<CompanyClient?> GetCompanyByIdAsync(int clientId);
     public Task AddAsync(Client client);
-    public Task<bool> IndividualPeselExistsAsync(string pesel);
-    public Task<bool> CompanyKrsExistsAsync(string krs);
+    public Task<bool> IdExistsAsync(int clientId);
+    public Task<bool> PeselExistsAsync(string pesel);
+    public Task<bool> KrsExistsAsync(string krs);
     public Task<bool> AddressExistsAsync(int addressId);
     public Task SaveChangesAsync();
 }

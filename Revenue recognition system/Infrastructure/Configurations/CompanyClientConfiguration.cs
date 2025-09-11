@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Revenue_recognition_system.Domain.Entities;
 
-namespace Revenue_recognition_system.Configurations;
+namespace Revenue_recognition_system.Infrastructure.Configurations;
 
 public class CompanyClientConfiguration : IEntityTypeConfiguration<CompanyClient>
 {

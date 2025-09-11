@@ -1,4 +1,4 @@
-﻿using Revenue_recognition_system.Models;
+﻿using Revenue_recognition_system.Domain.Entities;
 
 namespace Revenue_recognition_system.Configurations;
 

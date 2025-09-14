@@ -23,7 +23,14 @@ public class ClientService(IClientRepository repository) : IClientService
             Pesel = client.Pesel,
             Email = client.Email,
             PhoneNumber = client.PhoneNumber,
-            AddressId = client.AddressId
+            Address = new GetAddressDto
+            {
+                Id = client.AddressId,
+                City = client.Address.City,
+                Number = client.Address.Number,
+                Street = client.Address.Street,
+                PostalCode = client.Address.PostalCode
+            }
         };
     }
     
@@ -41,7 +48,14 @@ public class ClientService(IClientRepository repository) : IClientService
             Krs = client.Krs,
             Email = client.Email,
             PhoneNumber = client.PhoneNumber,
-            AddressId = client.AddressId
+            Address = new GetAddressDto
+            {
+                Id = client.AddressId,
+                City = client.Address.City,
+                Street = client.Address.Street,
+                Number = client.Address.Number,
+                PostalCode = client.Address.PostalCode
+            }
         };
     }
 
@@ -53,7 +67,7 @@ public class ClientService(IClientRepository repository) : IClientService
         if (!await repository.AddressExistsAsync(dto.AddressId))
             throw new NotFoundException("Address doesn't exist.");
 
-        var newClient = new IndividualClient
+        var clientToAdd = new IndividualClient
         {
             FirstName = dto.FirstName,
             LastName = dto.LastName,
@@ -64,18 +78,28 @@ public class ClientService(IClientRepository repository) : IClientService
             IsDeleted = false
         };
 
-        await repository.AddAsync(newClient);
+        await repository.AddAsync(clientToAdd);
         await repository.SaveChangesAsync();
 
+        // Get DTO for response
+        var createdClient = await repository.GetIndividualByIdAsync(clientToAdd.Id);
+        
         return new GetIndividualClientDto
         {
-            Id = newClient.Id,
-            FirstName = dto.FirstName,
-            LastName = dto.LastName,
-            Pesel = dto.Pesel,
-            Email = dto.Email,
-            PhoneNumber = dto.PhoneNumber,
-            AddressId = dto.AddressId
+            Id = createdClient!.Id,
+            FirstName = createdClient.FirstName,
+            LastName = createdClient.LastName,
+            Pesel = createdClient.Pesel,
+            Email = createdClient.Email,
+            PhoneNumber = createdClient.PhoneNumber,
+            Address = new GetAddressDto
+            {
+                Id = createdClient.AddressId,
+                City = createdClient.Address.City,
+                Street = createdClient.Address.Street,
+                Number = createdClient.Address.Number,
+                PostalCode = createdClient.Address.PostalCode
+            }
         };
     }
 
@@ -87,7 +111,7 @@ public class ClientService(IClientRepository repository) : IClientService
         if (!await repository.AddressExistsAsync(dto.AddressId))
             throw new NotFoundException("Address does not exist.");
 
-        var newClient = new CompanyClient
+        var clientToAdd = new CompanyClient
         {
             Name = dto.Name,
             Krs = dto.Krs,
@@ -96,16 +120,26 @@ public class ClientService(IClientRepository repository) : IClientService
             AddressId = dto.AddressId
         };
 
-        await repository.AddAsync(newClient);
+        await repository.AddAsync(clientToAdd);
         await repository.SaveChangesAsync();
+        
+        // Get DTO for response
+        var createdClient = await repository.GetCompanyByIdAsync(clientToAdd.Id);
 
         return new GetCompanyClientDto
         {
-            Name = newClient.Name,
-            Krs = newClient.Krs,
-            Email = newClient.Email,
-            PhoneNumber = newClient.PhoneNumber,
-            AddressId = newClient.AddressId
+            Name = createdClient!.Name,
+            Krs = createdClient.Krs,
+            Email = createdClient.Email,
+            PhoneNumber = createdClient.PhoneNumber,
+            Address = new GetAddressDto
+            {
+                Id = createdClient.AddressId,
+                City = createdClient.Address.City,
+                Street = createdClient.Address.Street,
+                Number = createdClient.Address.Number,
+                PostalCode = createdClient.Address.PostalCode
+            }
         };
     }
 }

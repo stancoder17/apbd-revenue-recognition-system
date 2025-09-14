@@ -7,5 +7,5 @@ public class GetCompanyClientDto
     public string Krs { get; set; } = null!;
     public string Email { get; set; } = null!;
     public string PhoneNumber { get; set; } = null!;
-    public int AddressId { get; set; }
+    public GetAddressDto Address { get; set; } = null!;
 }

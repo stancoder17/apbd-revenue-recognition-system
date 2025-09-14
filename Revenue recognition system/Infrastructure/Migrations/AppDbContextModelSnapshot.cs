@@ -22,7 +22,7 @@ namespace Revenue_recognition_system.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.Address", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.Address", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -52,10 +52,10 @@ namespace Revenue_recognition_system.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Address", (string)null);
+                    b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.Category", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -73,7 +73,7 @@ namespace Revenue_recognition_system.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.Client", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.Client", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -111,7 +111,7 @@ namespace Revenue_recognition_system.Migrations
                     b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.ClientDiscount", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.ClientDiscount", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -134,7 +134,7 @@ namespace Revenue_recognition_system.Migrations
                     b.ToTable("ClientDiscounts");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.Contract", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.Contract", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -169,7 +169,7 @@ namespace Revenue_recognition_system.Migrations
                     b.ToTable("Contracts");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.Discount", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.Discount", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -199,7 +199,7 @@ namespace Revenue_recognition_system.Migrations
                     b.ToTable("Discounts");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.Payment", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.Payment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -241,7 +241,7 @@ namespace Revenue_recognition_system.Migrations
                     b.ToTable("Payments");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.PaymentMethod", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.PaymentMethod", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -259,7 +259,7 @@ namespace Revenue_recognition_system.Migrations
                     b.ToTable("PaymentMethods");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.PaymentTarget", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.PaymentTarget", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -282,7 +282,7 @@ namespace Revenue_recognition_system.Migrations
                     b.ToTable("PaymentTargets");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.Software", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.Software", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -313,7 +313,7 @@ namespace Revenue_recognition_system.Migrations
                     b.ToTable("Softwares");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.SoftwareVersion", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.SoftwareVersion", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -340,7 +340,7 @@ namespace Revenue_recognition_system.Migrations
                     b.ToTable("SoftwareVersions");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.SoftwareVersionDiscount", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.SoftwareVersionDiscount", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -363,7 +363,7 @@ namespace Revenue_recognition_system.Migrations
                     b.ToTable("SoftwareVersionDiscounts");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.Status", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.Status", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -381,7 +381,7 @@ namespace Revenue_recognition_system.Migrations
                     b.ToTable("Statuses");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.SupportExtension", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.SupportExtension", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -411,7 +411,7 @@ namespace Revenue_recognition_system.Migrations
 
             modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.CompanyClient", b =>
                 {
-                    b.HasBaseType("Revenue_recognition_system.Models.Client");
+                    b.HasBaseType("Revenue_recognition_system.Domain.Entities.Client");
 
                     b.Property<string>("Krs")
                         .IsRequired()
@@ -432,9 +432,9 @@ namespace Revenue_recognition_system.Migrations
                     b.HasDiscriminator().HasValue("Company");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.IndividualClient", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.IndividualClient", b =>
                 {
-                    b.HasBaseType("Revenue_recognition_system.Models.Client");
+                    b.HasBaseType("Revenue_recognition_system.Domain.Entities.Client");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -456,16 +456,12 @@ namespace Revenue_recognition_system.Migrations
                         .HasColumnName("PESEL")
                         .IsFixedLength();
 
-                    b.HasIndex("Pesel")
-                        .IsUnique()
-                        .HasFilter("[PESEL] IS NOT NULL");
-
                     b.HasDiscriminator().HasValue("Individual");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.Client", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.Client", b =>
                 {
-                    b.HasOne("Revenue_recognition_system.Models.Address", "Address")
+                    b.HasOne("Revenue_recognition_system.Domain.Entities.Address", "Address")
                         .WithMany("Clients")
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -474,15 +470,15 @@ namespace Revenue_recognition_system.Migrations
                     b.Navigation("Address");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.ClientDiscount", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.ClientDiscount", b =>
                 {
-                    b.HasOne("Revenue_recognition_system.Models.Client", "Client")
+                    b.HasOne("Revenue_recognition_system.Domain.Entities.Client", "Client")
                         .WithMany("ClientDiscounts")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Revenue_recognition_system.Models.Discount", "Discount")
+                    b.HasOne("Revenue_recognition_system.Domain.Entities.Discount", "Discount")
                         .WithMany("ClientDiscounts")
                         .HasForeignKey("DiscountId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -493,9 +489,9 @@ namespace Revenue_recognition_system.Migrations
                     b.Navigation("Discount");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.Contract", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.Contract", b =>
                 {
-                    b.HasOne("Revenue_recognition_system.Models.Client", "Client")
+                    b.HasOne("Revenue_recognition_system.Domain.Entities.Client", "Client")
                         .WithMany("Contracts")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -504,21 +500,21 @@ namespace Revenue_recognition_system.Migrations
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.Payment", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.Payment", b =>
                 {
-                    b.HasOne("Revenue_recognition_system.Models.PaymentMethod", "PaymentMethod")
+                    b.HasOne("Revenue_recognition_system.Domain.Entities.PaymentMethod", "PaymentMethod")
                         .WithMany("Payments")
                         .HasForeignKey("PaymentMethodId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Revenue_recognition_system.Models.PaymentTarget", "PaymentTarget")
+                    b.HasOne("Revenue_recognition_system.Domain.Entities.PaymentTarget", "PaymentTarget")
                         .WithMany("Payments")
                         .HasForeignKey("PaymentTargetId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Revenue_recognition_system.Models.Status", "Status")
+                    b.HasOne("Revenue_recognition_system.Domain.Entities.Status", "Status")
                         .WithMany("Payments")
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -531,13 +527,13 @@ namespace Revenue_recognition_system.Migrations
                     b.Navigation("Status");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.PaymentTarget", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.PaymentTarget", b =>
                 {
-                    b.HasOne("Revenue_recognition_system.Models.Contract", "Contract")
+                    b.HasOne("Revenue_recognition_system.Domain.Entities.Contract", "Contract")
                         .WithMany()
                         .HasForeignKey("ContractId");
 
-                    b.HasOne("Revenue_recognition_system.Models.SupportExtension", "SupportExtension")
+                    b.HasOne("Revenue_recognition_system.Domain.Entities.SupportExtension", "SupportExtension")
                         .WithMany()
                         .HasForeignKey("SupportExtensionId");
 
@@ -546,9 +542,9 @@ namespace Revenue_recognition_system.Migrations
                     b.Navigation("SupportExtension");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.Software", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.Software", b =>
                 {
-                    b.HasOne("Revenue_recognition_system.Models.Category", "Category")
+                    b.HasOne("Revenue_recognition_system.Domain.Entities.Category", "Category")
                         .WithMany("Softwares")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -557,9 +553,9 @@ namespace Revenue_recognition_system.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.SoftwareVersion", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.SoftwareVersion", b =>
                 {
-                    b.HasOne("Revenue_recognition_system.Models.Software", "Software")
+                    b.HasOne("Revenue_recognition_system.Domain.Entities.Software", "Software")
                         .WithMany("Versions")
                         .HasForeignKey("SoftwareId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -568,15 +564,15 @@ namespace Revenue_recognition_system.Migrations
                     b.Navigation("Software");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.SoftwareVersionDiscount", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.SoftwareVersionDiscount", b =>
                 {
-                    b.HasOne("Revenue_recognition_system.Models.Discount", "Discount")
+                    b.HasOne("Revenue_recognition_system.Domain.Entities.Discount", "Discount")
                         .WithMany("SoftwareVersionDiscounts")
                         .HasForeignKey("DiscountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Revenue_recognition_system.Models.SoftwareVersion", "SoftwareVersion")
+                    b.HasOne("Revenue_recognition_system.Domain.Entities.SoftwareVersion", "SoftwareVersion")
                         .WithMany("SoftwareVersionDiscounts")
                         .HasForeignKey("SoftwareVersionId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -587,9 +583,9 @@ namespace Revenue_recognition_system.Migrations
                     b.Navigation("SoftwareVersion");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.SupportExtension", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.SupportExtension", b =>
                 {
-                    b.HasOne("Revenue_recognition_system.Models.Contract", "Contract")
+                    b.HasOne("Revenue_recognition_system.Domain.Entities.Contract", "Contract")
                         .WithMany("SupportExtensions")
                         .HasForeignKey("ContractId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -598,56 +594,56 @@ namespace Revenue_recognition_system.Migrations
                     b.Navigation("Contract");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.Address", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.Address", b =>
                 {
                     b.Navigation("Clients");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.Category", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.Category", b =>
                 {
                     b.Navigation("Softwares");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.Client", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.Client", b =>
                 {
                     b.Navigation("ClientDiscounts");
 
                     b.Navigation("Contracts");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.Contract", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.Contract", b =>
                 {
                     b.Navigation("SupportExtensions");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.Discount", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.Discount", b =>
                 {
                     b.Navigation("ClientDiscounts");
 
                     b.Navigation("SoftwareVersionDiscounts");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.PaymentMethod", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.PaymentMethod", b =>
                 {
                     b.Navigation("Payments");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.PaymentTarget", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.PaymentTarget", b =>
                 {
                     b.Navigation("Payments");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.Software", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.Software", b =>
                 {
                     b.Navigation("Versions");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.SoftwareVersion", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.SoftwareVersion", b =>
                 {
                     b.Navigation("SoftwareVersionDiscounts");
                 });
 
-            modelBuilder.Entity("Revenue_recognition_system.Models.Status", b =>
+            modelBuilder.Entity("Revenue_recognition_system.Domain.Entities.Status", b =>
                 {
                     b.Navigation("Payments");
                 });

@@ -9,17 +9,21 @@ public class ClientRepository(AppDbContext context) : IClientRepository
 {
     public async Task<IndividualClient?> GetIndividualByIdAsync(int clientId)
     {
-        return await context.IndividualClients.FirstOrDefaultAsync(c => c.Id == clientId);
+        return await context.IndividualClients
+            .Include(ic => ic.Address)
+            .FirstOrDefaultAsync(c => c.Id == clientId);
     }
     
     public async Task<CompanyClient?> GetCompanyByIdAsync(int clientId)
     {
-        return await context.CompanyClients.FirstOrDefaultAsync(c => c.Id == clientId);
+        return await context.CompanyClients
+            .Include(cc => cc.Address)
+            .FirstOrDefaultAsync(c => c.Id == clientId);
     }
     
     public async Task AddAsync(Client client)
     {
-        await context.AddAsync(client);
+        await context.Clients.AddAsync(client);
     }
 
     public async Task<bool> IdExistsAsync(int clientId)

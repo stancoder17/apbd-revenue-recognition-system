@@ -14,7 +14,8 @@ public class CompanyClientValidator : AbstractValidator<AddCompanyClientDto>
 
         RuleFor(x => x.Krs)
             .NotEmpty().WithMessage("KRS is required.")
-            .Length(ClientConstraints.KrsLength).WithMessage($"KRS must be {ClientConstraints.KrsLength} characters long.");
+            .Length(ClientConstraints.KrsLength).WithMessage($"KRS must be {ClientConstraints.KrsLength} characters long.")
+            .Matches(@"^\d+$").WithMessage("KRS must contain only digits.");
 
         RuleFor(x => x.Email)
             .NotEmpty().WithMessage("Email is required.")

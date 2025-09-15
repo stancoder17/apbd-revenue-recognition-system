@@ -18,7 +18,8 @@ public class IndividualClientValidator : AbstractValidator<AddIndividualClientDt
 
         RuleFor(x => x.Pesel)
             .NotEmpty().WithMessage("PESEL is required.")
-            .Length(ClientConstraints.PeselLength).WithMessage($"PESEL must be {ClientConstraints.PeselLength} characters long.");
+            .Length(ClientConstraints.PeselLength).WithMessage($"PESEL must be {ClientConstraints.PeselLength} characters long.")
+            .Matches(@"^\d+$").WithMessage("PESEL must contain only digits.");
 
         RuleFor(x => x.Email)
             .NotEmpty().WithMessage("Email is required.")

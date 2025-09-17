@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Revenue_recognition_system.Domain.Constants;
 using Revenue_recognition_system.Domain.Entities;
 
 namespace Revenue_recognition_system.Infrastructure.Configurations;
@@ -12,11 +13,11 @@ public class ClientConfiguration : IEntityTypeConfiguration<Client>
 
         builder.Property(c => c.Email)
             .IsRequired()
-            .HasMaxLength(100);
+            .HasMaxLength(ClientConstraints.EmailMaxLength);
         
         builder.Property(c => c.PhoneNumber)
             .IsRequired()
-            .HasMaxLength(15);
+            .HasMaxLength(ClientConstraints.PhoneNumberMaxLength);
         
         builder.Property(c => c.AddressId)
             .IsRequired()

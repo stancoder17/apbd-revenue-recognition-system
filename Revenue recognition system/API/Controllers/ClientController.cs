@@ -14,7 +14,7 @@ public class ClientsController(IClientService service) : ControllerBase
     {
         try
         {
-            return Ok(await service.GetIndividualClientByIdAsync(clientId));
+            return Ok(await service.GetIndividualByIdAsync(clientId));
         }
         catch (NotFoundException e)
         {
@@ -22,25 +22,12 @@ public class ClientsController(IClientService service) : ControllerBase
         }
     }
 
-    [HttpGet("company/{clientId:int}")]
-    public async Task<IActionResult> GetCompanyById(int clientId)
-    {
-        try
-        {
-            return Ok(await service.GetCompanyClientByIdAsync(clientId));
-        }
-        catch (NotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
-    }
-    
     [HttpPost("individual")]
     public async Task<IActionResult> AddIndividual([FromBody] AddIndividualClientDto dto)
     {
         try
         {
-            var client = await service.AddIndividualClientAsync(dto);
+            var client = await service.AddIndividualAsync(dto);
             return CreatedAtAction(nameof(GetIndividualById), new { clientId = client.Id }, client);
         }
         catch (NotFoundException e)
@@ -53,12 +40,43 @@ public class ClientsController(IClientService service) : ControllerBase
         }
     }
 
+    [HttpDelete("individual/{clientId:int}")]
+    public async Task<IActionResult> DeleteIndividual(int clientId)
+    {
+        try
+        {
+            await service.DeleteIndividualAsync(clientId);
+            return NoContent();
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (BadRequestException e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpGet("company/{clientId:int}")]
+    public async Task<IActionResult> GetCompanyById(int clientId)
+    {
+        try
+        {
+            return Ok(await service.GetCompanyByIdAsync(clientId));
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+    }
+
     [HttpPost("company")]
     public async Task<IActionResult> AddCompany([FromBody] AddCompanyClientDto dto)
     {
         try
         {
-            var client = await service.AddCompanyClientAsync(dto);
+            var client = await service.AddCompanyAsync(dto);
             return CreatedAtAction(nameof(GetCompanyById), new { clientId = client.Id }, client);
         }
         catch (NotFoundException e)

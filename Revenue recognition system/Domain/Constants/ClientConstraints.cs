@@ -3,7 +3,7 @@
 public static class ClientConstraints
 {
     public const int EmailMaxLength = 100;
-    public const int PhoneNumberMaxLength = 15;
+    public const int PhoneNumberMaxLength = 20;
 
     public const int FirstNameMaxLength = 100;
     public const int LastNameMaxLength = 100;

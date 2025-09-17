@@ -7,6 +7,14 @@ namespace Revenue_recognition_system.Repositories;
 
 public class ClientRepository(AppDbContext context) : IClientRepository
 {
+    public async Task<Client?> GetByIdAsync(int clientId)
+    {
+        return await context.Clients
+            .Include(c => (c as IndividualClient)!.Address)
+            .Include(c => (c as CompanyClient)!.Address)
+            .FirstOrDefaultAsync(c => c.Id == clientId);
+    }
+    
     public async Task<IndividualClient?> GetIndividualByIdAsync(int clientId)
     {
         return await context.IndividualClients

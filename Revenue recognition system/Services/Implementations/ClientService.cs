@@ -8,7 +8,7 @@ namespace Revenue_recognition_system.Services.Implementations;
 
 public class ClientService(IClientRepository repository) : IClientService
 {
-    public async Task<GetIndividualClientDto> GetIndividualClientByIdAsync(int clientId)
+    public async Task<GetIndividualClientDto> GetIndividualByIdAsync(int clientId)
     {
         var client = await repository.GetIndividualByIdAsync(clientId);
         
@@ -34,7 +34,7 @@ public class ClientService(IClientRepository repository) : IClientService
         };
     }
     
-    public async Task<GetCompanyClientDto> GetCompanyClientByIdAsync(int clientId)
+    public async Task<GetCompanyClientDto> GetCompanyByIdAsync(int clientId)    
     {
         var client = await repository.GetCompanyByIdAsync(clientId);
         
@@ -59,7 +59,7 @@ public class ClientService(IClientRepository repository) : IClientService
         };
     }
 
-    public async Task<GetIndividualClientDto> AddIndividualClientAsync(AddIndividualClientDto dto)
+    public async Task<GetIndividualClientDto> AddIndividualAsync(AddIndividualClientDto dto)
     {
         if (await repository.PeselExistsAsync(dto.Pesel))
             throw new AlreadyExistsException($"Individual client with PESEL {dto.Pesel} already exists.");
@@ -103,7 +103,7 @@ public class ClientService(IClientRepository repository) : IClientService
         };
     }
 
-    public async Task<GetCompanyClientDto> AddCompanyClientAsync(AddCompanyClientDto dto)
+    public async Task<GetCompanyClientDto> AddCompanyAsync(AddCompanyClientDto dto)
     {
         if (await repository.KrsExistsAsync(dto.Krs))
             throw new AlreadyExistsException($"Company with KRS {dto.Krs} already exists.");
@@ -141,5 +141,25 @@ public class ClientService(IClientRepository repository) : IClientService
                 PostalCode = createdClient.Address.PostalCode
             }
         };
+    }
+
+    public async Task DeleteIndividualAsync(int clientId)
+    {
+        // If doesn't exist
+        var client = await repository.GetByIdAsync(clientId);
+        if (client == null)
+            throw new NotFoundException($"Client with id {clientId} doesn't exist.");
+
+        // If not Individual
+        if (client is not IndividualClient individual)
+            throw new BadRequestException($"Client with id {clientId} is not an individual client.");
+
+        // If already deleted
+        if (individual.IsDeleted)
+            throw new BadRequestException("Client is already deleted.");
+
+        // All good -> delete
+        individual.IsDeleted = true;
+        await repository.SaveChangesAsync();
     }
 }

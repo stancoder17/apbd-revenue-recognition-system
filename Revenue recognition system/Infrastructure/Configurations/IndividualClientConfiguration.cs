@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Revenue_recognition_system.Domain.Constants;
 using Revenue_recognition_system.Domain.Entities;
 
 namespace Revenue_recognition_system.Configurations;
@@ -12,15 +13,15 @@ public class IndividualClientConfiguration : IEntityTypeConfiguration<Individual
         
         builder.Property(ic => ic.FirstName)
             .IsRequired()
-            .HasMaxLength(100);
+            .HasMaxLength(ClientConstraints.FirstNameMaxLength);
 
         builder.Property(ic => ic.LastName)
             .IsRequired()
-            .HasMaxLength(100);
+            .HasMaxLength(ClientConstraints.LastNameMaxLength);;
 
         builder.Property(ic => ic.Pesel)
             .IsRequired()
-            .HasMaxLength(11)
+            .HasMaxLength(ClientConstraints.PeselLength)
             .IsFixedLength()
             .HasColumnName("PESEL");
 

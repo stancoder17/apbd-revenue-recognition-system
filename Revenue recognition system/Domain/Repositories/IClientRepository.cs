@@ -4,6 +4,7 @@ namespace Revenue_recognition_system.Domain.Repositories;
 
 public interface IClientRepository
 {
+    public Task<Client?> GetByIdAsync(int clientId);
     public Task<IndividualClient?> GetIndividualByIdAsync(int clientId);
     public Task<CompanyClient?> GetCompanyByIdAsync(int clientId);
     public Task AddAsync(Client client);

@@ -8,8 +8,8 @@ public class Contract
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
     public decimal FinalPrice { get; set; }
+    public int? AdditionalSupportYears { get; set; }
     public DateTime? SignedAt { get; set; }
 
     public virtual Client Client { get; set; } = null!;
-    public virtual ICollection<SupportExtension> SupportExtensions { get; set; } = new List<SupportExtension>();
 }

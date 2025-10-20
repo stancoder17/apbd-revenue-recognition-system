@@ -16,7 +16,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddControllers()
     .AddFluentValidation(fv =>
     {
-        // The project will scan the assembly, in which CompanyClientValidator is located, looking for other validators
+        // The project will scan the assembly, in which CompanyClientValidator is located, looking for other validators.
         fv.RegisterValidatorsFromAssemblyContaining<AddCompanyClientValidator>(); 
     });
 

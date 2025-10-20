@@ -8,6 +8,5 @@ public class PaymentTarget
     
     
     public virtual Contract Contract { get; set; } = null!;
-    public virtual SupportExtension SupportExtension { get; set; } = null!;
     public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
 }

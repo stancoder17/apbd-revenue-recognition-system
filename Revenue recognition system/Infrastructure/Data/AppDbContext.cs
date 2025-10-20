@@ -14,7 +14,6 @@ public class AppDbContext : DbContext
     public DbSet<IndividualClient> IndividualClients { get; set; }
     public DbSet<CompanyClient> CompanyClients { get; set; }
     public DbSet<Contract> Contracts { get; set; }
-    public DbSet<SupportExtension> SupportExtensions { get; set; }
     public DbSet<Payment> Payments { get; set; }
     public DbSet<PaymentMethod> PaymentMethods { get; set; }
     public DbSet<PaymentTarget> PaymentTargets { get; set; }

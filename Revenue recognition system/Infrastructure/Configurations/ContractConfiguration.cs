@@ -26,15 +26,16 @@ public class ContractConfiguration : IEntityTypeConfiguration<Contract>
             .HasColumnType("decimal(18,2)")
             .IsRequired();
 
+        builder.Property(c => c.AdditionalSupportYears)
+            .IsRequired(false);
+            
+        
         builder.Property(c => c.SignedAt)
             .IsRequired(false);
 
         builder.HasOne(c => c.Client)
             .WithMany(c => c.Contracts)
             .HasForeignKey(c => c.ClientId);
-
-        builder.HasMany(c => c.SupportExtensions)
-            .WithOne(se => se.Contract)
-            .HasForeignKey(se => se.ContractId);
+        
     }
 }

@@ -5,9 +5,9 @@ using Revenue_recognition_system.Services.Validators;
 
 namespace Revenue_recognition_system.Tests;
 
-public class CompanyClientValidatorTests
+public class AddCompanyClientValidatorTests
 {
-    private readonly CompanyClientValidator _validator = new();
+    private readonly AddCompanyClientValidator _validator = new();
 
     // Each InlineData row = one invalid case for a specific property
     [Theory]
@@ -23,7 +23,7 @@ public class CompanyClientValidatorTests
         "123456789", 1, "Email")] // email too long
     [InlineData("ValidName", "1234567890", "bad-email", "123456789", 1, "Email")]           // email invalid
     [InlineData("ValidName", "1234567890", "test@test.com", "", 1, "PhoneNumber")]          // phone empty
-    [InlineData("ValidName", "1234567890", "test@test.com", "+48 912 491 412 943", 1, "PhoneNumber")]          // phone too long
+    [InlineData("ValidName", "1234567890", "test@test.com", "+48 912 491 412 943 123", 1, "PhoneNumber")]          // phone too long
     [InlineData("ValidName", "1234567890", "test@test.com", "123456789", 0, "AddressId")]   // AddressId invalid
     public void Should_Have_Error_For_Invalid_Input(
         string name, string krs, string email, string phoneNumber, int addressId, string expectedErrorProperty)

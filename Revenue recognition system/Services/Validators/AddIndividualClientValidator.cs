@@ -4,9 +4,9 @@ using Revenue_recognition_system.Services.DTOs;
 
 namespace Revenue_recognition_system.Services.Validators;
 
-public class IndividualClientValidator : AbstractValidator<AddIndividualClientDto>
+public class AddIndividualClientValidator : AbstractValidator<AddIndividualClientDto>
 {
-    public IndividualClientValidator()
+    public AddIndividualClientValidator()
     {
         RuleFor(x => x.FirstName)
             .NotEmpty().WithMessage("First name is required.")

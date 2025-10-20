@@ -8,5 +8,7 @@ public interface IClientService
     public Task<GetCompanyClientDto> GetCompanyByIdAsync(int clientId);
     public Task<GetIndividualClientDto> AddIndividualAsync(AddIndividualClientDto dto);
     public Task<GetCompanyClientDto> AddCompanyAsync(AddCompanyClientDto dto);
+    public Task<GetIndividualClientDto> UpdateIndividualAsync(int clientId, UpdateIndividualClientDto dto);
+    public Task<GetCompanyClientDto> UpdateCompanyAsync(int clientId, UpdateCompanyClientDto dto);
     public Task DeleteIndividualAsync(int clientId);
 }

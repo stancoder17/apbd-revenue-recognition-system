@@ -4,18 +4,17 @@ using Revenue_recognition_system.Services.DTOs;
 
 namespace Revenue_recognition_system.Services.Validators;
 
-public class CompanyClientValidator : AbstractValidator<AddCompanyClientDto>
+public class UpdateIndividualClientValidator : AbstractValidator<UpdateIndividualClientDto>
 {
-    public CompanyClientValidator()
+    public UpdateIndividualClientValidator()
     {
-        RuleFor(x => x.Name)
-            .NotEmpty().WithMessage("Company name is required.")
-            .MaximumLength(ClientConstraints.CompanyNameMaxLength).WithMessage($"Company name cannot be longer than {ClientConstraints.CompanyNameMaxLength} characters.");
+        RuleFor(x => x.FirstName)
+            .NotEmpty().WithMessage("First name is required.")
+            .MaximumLength(ClientConstraints.FirstNameMaxLength).WithMessage($"FirstName cannot be longer than {ClientConstraints.FirstNameMaxLength} characters.");
 
-        RuleFor(x => x.Krs)
-            .NotEmpty().WithMessage("KRS is required.")
-            .Length(ClientConstraints.KrsLength).WithMessage($"KRS must be {ClientConstraints.KrsLength} characters long.")
-            .Matches(@"^\d+$").WithMessage("KRS must contain only digits.");
+        RuleFor(x => x.LastName)
+            .NotEmpty().WithMessage("Last name is required.")
+            .MaximumLength(ClientConstraints.LastNameMaxLength).WithMessage($"LastName cannot be longer than {ClientConstraints.LastNameMaxLength} characters.");
 
         RuleFor(x => x.Email)
             .NotEmpty().WithMessage("Email is required.")

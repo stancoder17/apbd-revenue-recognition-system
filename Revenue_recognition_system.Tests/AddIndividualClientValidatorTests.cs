@@ -6,9 +6,9 @@ namespace Revenue_recognition_system.Tests;
 using FluentValidation.TestHelper;
 using Xunit;
 
-public class IndividualClientValidatorTests
+public class AddIndividualClientValidatorTests
 {
-    private readonly IndividualClientValidator _validator = new();
+    private readonly AddIndividualClientValidator _validator = new();
 
     // Each InlineData row = one invalid case for a specific property
     [Theory]
@@ -27,7 +27,7 @@ public class IndividualClientValidatorTests
     [InlineData("Jan", "Kowalski", "12345678901", "EmailIsWayTooLong_____________________________________________________________________________________________________________________________________________________________________________________@.com",
         "123456789", 1, "Email")] // email too long
     [InlineData("Jan", "Kowalski", "12345678901", "test@test.com", "", 1, "PhoneNumber")]      // phone empty
-    [InlineData("Jan", "Kowalski", "12345678901", "test@test.com", "+48 912 0312 4782 43", 1, "PhoneNumber")] // phone too long
+    [InlineData("Jan", "Kowalski", "12345678901", "test@test.com", "+48 912 0312 4782 43 2531", 1, "PhoneNumber")] // phone too long
     [InlineData("Jan", "Kowalski", "12345678901", "test@test.com", "123456789", 0, "AddressId")] // AddressId invalid
     public void Should_Have_Error_For_Invalid_Input(
         string firstName, string lastName, string pesel, string email, string phoneNumber, int addressId, string expectedErrorProperty)

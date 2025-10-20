@@ -40,6 +40,20 @@ public class ClientsController(IClientService service) : ControllerBase
         }
     }
 
+    [HttpPut("individual/{clientId:int}")]
+    public async Task<IActionResult> UpdateIndividual(int clientId, [FromBody] UpdateIndividualClientDto dto)
+    {
+        try
+        {
+            var client = await service.UpdateIndividualAsync(clientId, dto);
+            return Ok(client);
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+    }
+
     [HttpDelete("individual/{clientId:int}")]
     public async Task<IActionResult> DeleteIndividual(int clientId)
     {
@@ -86,6 +100,20 @@ public class ClientsController(IClientService service) : ControllerBase
         catch (AlreadyExistsException e)
         {
             return BadRequest(e.Message);
+        }
+    }
+
+    [HttpPut("company/{clientId:int}")]
+    public async Task<IActionResult> UpdateCompany(int clientId, [FromBody] UpdateCompanyClientDto dto)
+    {
+        try
+        {
+            var client = await service.UpdateCompanyAsync(clientId, dto);
+            return Ok(client);
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.Message);
         }
     }
 }

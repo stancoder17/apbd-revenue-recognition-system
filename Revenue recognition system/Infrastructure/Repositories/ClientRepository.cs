@@ -34,6 +34,33 @@ public class ClientRepository(AppDbContext context) : IClientRepository
         await context.Clients.AddAsync(client);
     }
 
+    public async Task<int> UpdateIndividualAsync(int clientId, string firstName, string lastName, string email, string phoneNumber, int addressId)
+    {
+        // Update selected columns for IndividualClient by id
+        return await context.IndividualClients
+            .Where(e => e.Id == clientId)
+            .ExecuteUpdateAsync(setters => setters
+                .SetProperty(e => e.FirstName, firstName)
+                .SetProperty(e => e.LastName, lastName)
+                .SetProperty(e => e.Email, email)
+                .SetProperty(e => e.PhoneNumber, phoneNumber)
+                .SetProperty(e => e.AddressId, addressId)
+            );
+    }
+
+    public async Task<int> UpdateCompanyAsync(int clientId, string name, string email, string phoneNumber, int addressId)
+    {
+        // Update selected columns for CompanyClient by id
+        return await context.CompanyClients
+            .Where(e => e.Id == clientId)
+            .ExecuteUpdateAsync(setters => setters
+                .SetProperty(e => e.Name, name)
+                .SetProperty(e => e.Email, email)
+                .SetProperty(e => e.PhoneNumber, phoneNumber)
+                .SetProperty(e => e.AddressId, addressId)
+            );
+    }
+
     public async Task<bool> IdExistsAsync(int clientId)
     {
         return await context.Clients

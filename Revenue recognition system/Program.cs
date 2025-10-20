@@ -17,7 +17,7 @@ builder.Services.AddControllers()
     .AddFluentValidation(fv =>
     {
         // The project will scan the assembly, in which CompanyClientValidator is located, looking for other validators
-        fv.RegisterValidatorsFromAssemblyContaining<CompanyClientValidator>(); 
+        fv.RegisterValidatorsFromAssemblyContaining<AddCompanyClientValidator>(); 
     });
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

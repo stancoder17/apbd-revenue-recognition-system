@@ -109,7 +109,7 @@ public class ClientService(IClientRepository repository) : IClientService
             throw new AlreadyExistsException($"Company with KRS {dto.Krs} already exists.");
 
         if (!await repository.AddressExistsAsync(dto.AddressId))
-            throw new NotFoundException("Address does not exist.");
+            throw new NotFoundException("Address doesn't exist.");
 
         var clientToAdd = new CompanyClient
         {
@@ -143,16 +143,94 @@ public class ClientService(IClientRepository repository) : IClientService
         };
     }
 
+    public async Task<GetIndividualClientDto> UpdateIndividualAsync(int clientId, UpdateIndividualClientDto dto)
+    {
+        // Validate address existence
+        if (!await repository.AddressExistsAsync(dto.AddressId))
+            throw new NotFoundException("Address doesn't exist.");
+
+        // Update using EF bulk update and check affected rows
+        var affectedRows = await repository.UpdateIndividualAsync(
+            clientId,
+            dto.FirstName,
+            dto.LastName,
+            dto.Email,
+            dto.PhoneNumber,
+            dto.AddressId);
+
+        if (affectedRows == 0)
+            throw new NotFoundException($"Individual client with id {clientId} doesn't exist.");
+
+        // Reload updated entity to build response DTO
+        var updated = await repository.GetIndividualByIdAsync(clientId);
+
+        return new GetIndividualClientDto
+        {
+            Id = updated!.Id,
+            FirstName = updated.FirstName,
+            LastName = updated.LastName,
+            Pesel = updated.Pesel, // immutable
+            Email = updated.Email,
+            PhoneNumber = updated.PhoneNumber,
+            Address = new GetAddressDto
+            {
+                Id = updated.AddressId,
+                City = updated.Address.City,
+                Street = updated.Address.Street,
+                Number = updated.Address.Number,
+                PostalCode = updated.Address.PostalCode
+            }
+        };
+    }
+
+    public async Task<GetCompanyClientDto> UpdateCompanyAsync(int clientId, UpdateCompanyClientDto dto)
+    {
+        // Validate address existence
+        if (!await repository.AddressExistsAsync(dto.AddressId))
+            throw new NotFoundException("Address doesn't exist.");
+
+        // Update using EF bulk update and check affected rows
+        var affectedRows = await repository.UpdateCompanyAsync(
+            clientId,
+            dto.Name,
+            dto.Email,
+            dto.PhoneNumber,
+            dto.AddressId);
+
+        if (affectedRows == 0)
+            throw new NotFoundException($"Company client with id {clientId} doesn't exist.");
+
+        // Reload updated entity to build response DTO
+        var updated = await repository.GetCompanyByIdAsync(clientId);
+
+        return new GetCompanyClientDto
+        {
+            Id = updated!.Id,
+            Name = updated.Name,
+            Krs = updated.Krs, // immutable
+            Email = updated.Email,
+            PhoneNumber = updated.PhoneNumber,
+            Address = new GetAddressDto
+            {
+                Id = updated.AddressId,
+                City = updated.Address.City,
+                Street = updated.Address.Street,
+                Number = updated.Address.Number,
+                PostalCode = updated.Address.PostalCode
+            }
+        };
+    }
+
     public async Task DeleteIndividualAsync(int clientId)
     {
         // If doesn't exist
         var client = await repository.GetByIdAsync(clientId);
         if (client == null)
-            throw new NotFoundException($"Client with id {clientId} doesn't exist.");
+            throw new NotFoundException("Client doesn't exist.");
 
         // If not Individual
         if (client is not IndividualClient individual)
-            throw new BadRequestException($"Client with id {clientId} is not an individual client.");
+            throw new BadRequestException("Client is not an individual client.");
 
         // If already deleted
         if (individual.IsDeleted)

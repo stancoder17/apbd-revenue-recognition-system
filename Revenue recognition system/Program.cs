@@ -2,7 +2,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Revenue_recognition_system.Data;
 using Revenue_recognition_system.Domain.Repositories;
-using Revenue_recognition_system.Repositories;
+using Revenue_recognition_system.Infrastructure.Repositories;
 using Revenue_recognition_system.Services.Implementations;
 using Revenue_recognition_system.Services.Interfaces;
 using Revenue_recognition_system.Services.Validators;
@@ -25,6 +25,8 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IContractRepository, ContractRepository>();
+builder.Services.AddScoped<IContractService, ContractService>();
 
 var app = builder.Build();
 

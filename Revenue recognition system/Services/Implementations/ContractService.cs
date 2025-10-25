@@ -7,7 +7,7 @@ namespace Revenue_recognition_system.Services.Implementations;
 
 public class ContractService(IContractRepository repository) : IContractService
 {
-    public async Task<GetContractDto?> GetByIdAsync(int contractId)
+    public async Task<GetContractDto> GetByIdAsync(int contractId)
     {
         var contract = await repository.GetByIdAsync(contractId);
         

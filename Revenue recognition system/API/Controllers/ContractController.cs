@@ -6,7 +6,7 @@ namespace Revenue_recognition_system.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ContractsController(IContractService service) : ControllerBase
+public class ContractController(IContractService service) : ControllerBase
 {
     [HttpGet("{contractId:int}")]
     public async Task<IActionResult> GetById(int contractId)

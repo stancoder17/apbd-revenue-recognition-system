@@ -2,15 +2,16 @@
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Revenue_recognition_system.API.Controllers;
+using Revenue_recognition_system.Domain.Exceptions;
 using Revenue_recognition_system.Services.DTOs;
 using Revenue_recognition_system.Services.Interfaces;
 
 namespace Revenue_recognition_system.Tests;
 
-public class ContractsControllerTests
+public class ContractControllerTests
 {
-    private static ContractsController CreateController(Mock<IContractService> mock)
-        => new ContractsController(mock.Object);
+    private static ContractController CreateController(Mock<IContractService> mock)
+        => new ContractController(mock.Object);
 
     [Fact]
     public async Task GetById_ReturnsOk_WhenFound()
@@ -33,12 +34,16 @@ public class ContractsControllerTests
     [Fact]
     public async Task GetById_ReturnsNotFound_WhenMissing()
     {
+        // Arrange
         var mock = new Mock<IContractService>();
-        mock.Setup(s => s.GetByIdAsync(999)).ReturnsAsync((GetContractDto?)null);
+        mock.Setup(s => s.GetByIdAsync(999)).ThrowsAsync(new NotFoundException("not found"));
         var controller = CreateController(mock);
 
+        // Act
         var result = await controller.GetById(999);
 
-        Assert.IsType<NotFoundResult>(result);
+        // Assert
+        var nf = Assert.IsType<NotFoundObjectResult>(result);
+        Assert.Equal("not found", nf.Value);
     }
 }

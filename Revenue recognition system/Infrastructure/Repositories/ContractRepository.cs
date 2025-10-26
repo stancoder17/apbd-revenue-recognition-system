@@ -3,7 +3,7 @@ using Revenue_recognition_system.Data;
 using Revenue_recognition_system.Domain.Entities;
 using Revenue_recognition_system.Domain.Repositories;
 
-namespace Revenue_recognition_system.Infrastructure.Repositories;
+namespace Revenue_recognition_system.Repositories;
 
 public class ContractRepository(AppDbContext context) : IContractRepository
 {
@@ -13,4 +13,15 @@ public class ContractRepository(AppDbContext context) : IContractRepository
             .AsNoTracking()
             .FirstOrDefaultAsync(c => c.Id == contractId);
     }
+
+    public async Task AddAsync(Contract contract)
+    {
+        await context.Contracts.AddAsync(contract);
+    }
+
+    public async Task SaveChangesAsync()
+    {
+        await context.SaveChangesAsync();
+    }
+
 }
